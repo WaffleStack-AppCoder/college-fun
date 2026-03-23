@@ -1,13 +1,39 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
+ <template>
+  <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1>TODAY'S QUOTE:</h1>
+  <br>
+  <h3>
+    {{content}}
+  </h3>
+  <br>
+  <h4>
+    {{author}}
+  </h4>
 </template>
 
 <script>
+import axios from "axios"
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
+
+  data(){
+    return{
+      content: String,
+      author: String
+    }
+  },
+
+ async mounted(){
+   let response = axios.get("https://api.quotable.io/random")
+   this.content = response.data.content
+   this.author = response.data.author
+  },
+
   components: {
     HelloWorld
   }
@@ -22,5 +48,25 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.container{
+  background-color: aliceblue;
+  height: 100vh;
+  margin: 0;
+  padding-top: 5%;
+  border: 2px solid rgb(201, 56, 136);
+}
+
+h1{
+  color: red;
+}
+
+h3{
+  color: greenyellow
+}
+
+h4{
+  color: hotpink;
 }
 </style>
